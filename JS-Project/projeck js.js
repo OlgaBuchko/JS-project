@@ -21,6 +21,9 @@ let objArr = fetch(url)
                 localStorage.setItem(`id`,`${user.id}`)
             }
 
+
+
+
             // На странице user-details.html:
             // 4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
             // 5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера
@@ -46,14 +49,16 @@ let objArr = fetch(url)
  <li>email:${user.email}</li>
 <button id=activeAdress> address </button>
 <button id=userPosts> post of current user </button></ul>
-<div class="d-none" id="divPosts"></div>
+<div class="d-none" id="divPosts"><ul id="ulPost"></ul></div>
 `
+                userDet?.appendChild(detailUserDiv)
 
-                userDet.appendChild(detailUserDiv)
-                let buttonActiveAdress = document.getElementById('activeAdress')
+
+
+
                 let divAdressDetails = document.createElement('div')
                 divAdressDetails.classList.add('d-none')
-                userDet.appendChild(divAdressDetails)
+                userDet?.appendChild(divAdressDetails)
                 divAdressDetails.innerHTML=`<ul>
 <li>street: ${user.address.street} </li>
 <li>suite: ${user.address.suite}</li>
@@ -61,9 +66,11 @@ let objArr = fetch(url)
 <li>zipcode: ${user.address.zipcode}</li>
 <button> <a id=activeGeo>geo</a></button></ul>
 </ul>`
+
+                let buttonActiveAdress = document.getElementById('activeAdress')
                 buttonActiveAdress.onclick=function () {
                     divAdressDetails.classList.toggle('d-block')
-                    divAdressDetails.classList.toggle('d-none')
+                    divAdressDetails.classList.toggle('d-none') }
 
                     let buttonActiveGeo = document.getElementById('activeGeo')
                     let divGeoDetails = document.createElement('div')
@@ -73,39 +80,53 @@ let objArr = fetch(url)
 <li>lat: ${user.address.geo.lat}</li>
 <li>lng: ${user.address.geo.lng}</li>
 </ul>`
+
                     buttonActiveGeo.onclick = function () {
                         divGeoDetails.classList.toggle('d-block')
                         divGeoDetails.classList.toggle('d-none')
 
 
-                    }}}
-
-
-            let buttonPosts = document.getElementById('userPosts')
-            buttonPosts.onclick = function () {
-                let h2 = document.createElement('h2')
-
-                let divPost = document.getElementById('divPosts')
-                userDet.appendChild(divPost)
-                h2.innerText=(' Posts')
-                divPost.appendChild(h2)
-
-                divPost.classList.toggle('d-block')
-                divPost.classList.toggle('d-none')
+                   }
 
                 let url = new URL(`https://jsonplaceholder.typicode.com/users/${user.id}/posts`)
                 let postsArr = fetch(url)
                     .then((response) => response.json())
                     .then((posts) => {
                         for (const postElement of posts) {
+                            let liPost = document.createElement('li')
+                            let ulPost =document.getElementById('ulPost')
+                            ulPost?.appendChild(liPost)
+                            liPost.innerHTML= `${postElement.title}`
 
-                            let ulPost = document.createElement('ul')
-                            divPost.appendChild(ulPost)
-                            ulPost.innerHTML = `<li>${postElement.title}
-<button><a href="user-post.html">Details</a></button></li>`
+                            let postButtonDetail = document.createElement('button');
+                            liPost?.appendChild(postButtonDetail)
+                            postButtonDetail.innerHTML  =`<a href="user-post.html">Details</a>`
+                            postButtonDetail.onclick = function () {
+
+                                localStorage.setItem(`idPost`, `${postElement.id}`)
+                                console.log(postElement.id)
+
+
+
+
+                            }
+
+                            let buttonPosts = document.getElementById('userPosts')
+                            buttonPosts.onclick = function () {
+                                divPosts =  document.getElementById('divPosts')
+                                divPosts.classList.toggle('d-block')
+                                divPosts.classList.toggle('d-none')
+                            }
+
+
+
+
+
                         }
-                    })}
-        }})
+                    })
+            }
+        }
+        })
 
 
 
