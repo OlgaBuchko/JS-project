@@ -1,12 +1,119 @@
-.active{
-    display: block;
-}
-.etailAdressDiv{
-    display: none;
+*{
+    margin: 0;
 }
 .d-block{
     display: block;
 }
 .d-none{
-    display: none;
+    display: none !important;
+}
+.d-greed{
+    display: grid;
+
+}
+#usersAll{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.user{
+   margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #6f8c6f;
+    border-radius: 15px;
+    height: 150px;
+    padding: 10px;
+    text-align: center;
+    color: #6f8c6f;
+}
+.user>button{
+    border-color: #8fa58f;
+    background: #8fa58f;
+    color: #475347;
+}
+#user{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 5%;
+}
+#user>ul
+{
+    width: 60%;
+    list-style: none;
+    margin: 0;
+
+}
+#user>ul>li{
+    margin: 5px;
+}
+#user>button{
+    width: 100%;
+    margin-top: 20px;
+}
+#ulPosts{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 2fr);
+    padding: 0;
+    gap: 10px;
+    margin-top: 20px;
+}
+#ulPosts>li{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid grey;
+    align-items: center;
+    padding: 5px;
+
+}
+#ulPosts>li>button{
+
+    border-color: gray;
+}
+#ulPosts>li>button>a{
+    color: gray;
+    text-decoration: none;
+}
+#divPostDetails>div>h2{
+  text-align: center;
+
+}
+#divPostDetails>div{
+    margin: 20px;
+}
+#divPostDetails>div>div{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    gap: 15px;
+
+}
+#divPostDetails>ul{
+
+    text-align: center;
+   margin: 20px;
+    border: 2px #4e0012 outset;
+    color: #4e0012;
+    padding: 0;
+
+}
+#divPostDetails ul{
+    list-style: none;
+    padding: 10px;
+}
+#divPostDetails>div>div>ul>li{
+font-size: 10px;
+}
+#divPostDetails>div>div>ul{
+    margin-top: 20px;
+    padding: 0;
+    border: 2px #4e0012 outset;
+    color: #4e0012;
+    padding: 10px;
 }

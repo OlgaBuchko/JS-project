@@ -2,8 +2,12 @@ let url =new URL ('https://jsonplaceholder.typicode.com/users')
 let objArr = fetch(url)
     .then((response)=>response.json())
     .then((users) => {
+
         for (const user of users) {
-            let div =    document.getElementById('usersAll');
+            let divList =    document.getElementById('usersAll');
+            let div = document.createElement('div')
+            div.classList.add('user')
+            divList?.appendChild(div)
             let h2 = document.createElement('h2')
             h2.innerText = `${user.id}: ${user.name}`;
             div?.appendChild(h2) ;
@@ -25,12 +29,14 @@ let objArr = fetch(url)
 
                 function iterObj(obj, div) {
                     let ul = document.createElement('ul')
+
                     div?.appendChild(ul)
                     for (const objKey in obj) {
                         if (typeof obj[objKey] === 'object'){
                             iterObj(obj[objKey],div)
                     }else{
                             let li = document.createElement('li')
+
                             li.innerText = `${objKey}: ${obj[objKey]}`
                             ul.appendChild(li)
 
@@ -42,15 +48,19 @@ let objArr = fetch(url)
 let userPosts = document.createElement('button')
 userPosts.innerText = 'post of current user'
 
-                let ulUserPosts = document.createElement('ul')
-                ulUserPosts.classList.add('d-none')
-ulUserPosts.setAttribute('id','ulPosts' )
-                userDet?.append(userPosts, ulUserPosts)
+                let divUserPosts = document.createElement('div')
+
+divUserPosts.setAttribute('id','divPostsUl' )
+                ulUserPosts=document.createElement('ul')
+                divUserPosts.classList.add('d-none')
+                ulUserPosts.setAttribute('id', 'ulPosts')
+                divUserPosts.appendChild(ulUserPosts)
+                userDet?.append(userPosts, divUserPosts)
 
      userPosts.onclick = function () {
-                                ulUserPosts =  document.getElementById('ulPosts')
-                                ulUserPosts.classList.toggle('d-block')
-                                ulUserPosts.classList.toggle('d-none')
+                                ulPosts =  document.getElementById('divPostsUl')
+                                ulPosts.classList.toggle('d-block')
+                                ulPosts.classList.toggle('d-none')
                             }
 
                 let url = new URL(`https://jsonplaceholder.typicode.com/users/${user.id}/posts`)
@@ -86,13 +96,16 @@ ulUserPosts.setAttribute('id','ulPosts' )
                                         let divComments = document.createElement('div')
                                         let h2Title = document.createElement('h2')
                                         h2Title.innerText = 'Comments'
-                                        divComments?.appendChild(h2Title)
-                                        divPostDetails?.appendChild(divComments)
-                                        for (const comment of comments) {
-                                            let ulComment = document.createElement('ul')
-                                            divComments?.appendChild(ulComment)
+                                        let divUlComments = document.createElement('div')
+                                        divComments?.append(h2Title, divUlComments)
 
-                                            iterObj(comment,divComments)
+                                        divPostDetails?.appendChild(divComments)
+
+                                        for (const comment of comments) {
+                                            // let ulComment = document.createElement('ul')
+                                            // divComments?.appendChild(ulComment)
+
+                                            iterObj(comment,divUlComments)
                                         }
                                     })
 
